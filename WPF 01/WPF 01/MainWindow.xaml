@@ -7,6 +7,25 @@
         mc:Ignorable="d"
         Title="My First GUI" Height="450" Width="800">
     <Grid>
-        <Button Content="Click me" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown" PreviewMouseRightButtonUp="Button_PreviewMouseRightButtonUp" Width="150" Height="100"/>
+        <Grid.ColumnDefinitions>
+            <!-- Can use value, auto or * for width -->
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0">1</Button>
+        <Button Grid.Column="1" Grid.Row="0">2</Button>
+        <Button Grid.Column="2" Grid.Row="0">3</Button>
+        <Button Grid.Column="0" Grid.Row="1">4</Button>
+        <Button Grid.Column="1" Grid.Row="1">5</Button>
+        <Button Grid.Column="2" Grid.Row="1">6</Button>
+        <Button Grid.Column="0" Grid.Row="2">7</Button>
+        <Button Grid.Column="1" Grid.Row="2">8</Button>
+        <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">TEXT</TextBlock>
     </Grid>
 </Window>
