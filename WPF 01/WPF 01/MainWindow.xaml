@@ -6,15 +6,7 @@
         xmlns:local="clr-namespace:WPF_01"
         mc:Ignorable="d"
         Title="My First GUI" Height="450" Width="800">
-    <StackPanel>
-        <TextBlock HorizontalAlignment="Center" Margin="20">Hello World!</TextBlock>
-
-        <ListBox Height="100" Width="100">
-            <ListBoxItem Content="Item 1"/>
-            <ListBoxItem Content="Item 2"/>
-            <ListBoxItem Content="Item 3"/>
-        </ListBox>
-
-        <Button Content="Click me" Click="Button_Click" Margin="20"></Button>
-    </StackPanel>
+    <Grid>
+        <Button Content="Click me" PreviewMouseLeftButtonDown="Button_PreviewMouseLeftButtonDown" PreviewMouseRightButtonUp="Button_PreviewMouseRightButtonUp" Width="150" Height="100"/>
+    </Grid>
 </Window>

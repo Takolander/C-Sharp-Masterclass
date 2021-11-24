@@ -27,7 +27,27 @@ namespace WPF_01
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Thanks for clicking me");
+            MessageBox.Show("Button was clicked - Direct event");
+        }
+
+        private void Button_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Mouse button went up / was released - Bubbling event");
+        }
+
+        private void Button_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Mouse button went up / was released - Tunneling event");
+        }
+
+        private void Button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Left mouse button went down - Tunneling event");
+        }
+
+        private void Button_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Right mouse button went up - Tunneling event");
         }
     }
 }
