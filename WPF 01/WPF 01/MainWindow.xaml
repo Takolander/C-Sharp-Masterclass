@@ -6,12 +6,31 @@
         xmlns:local="clr-namespace:WPF_01"
         mc:Ignorable="d"
         Title="My First GUI" Height="450" Width="800">
-    <StackPanel>
-        <Label Content="Num1"/>
-        <TextBox Width="100" Height="30" Text="{Binding Path=Num1, Mode=TwoWay}"/>
-        <Label Content="Num2"/>
-        <TextBox Width="100" Height="30" Text="{Binding Path=Num2, Mode=TwoWay}"/>
-        <Label Content="SUM of Num1 and Num2"/>
-        <TextBox Width="100" Height="30" Text="{Binding Path=Result, Mode=TwoWay}"/>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="lbMatches" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Team1}"></TextBlock>
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Score1}"></TextBlock>
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="{Binding Score2}"></TextBlock>
+                        <TextBlock Grid.Column="3" Text="{Binding Team2}"></TextBlock>
+                        <ProgressBar Grid.Column="4" Minimum="0" Maximum="90" Value="{Binding Completion}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="1" Click="Button_Click">Show Selected</Button>
+    </Grid>
 </Window>
