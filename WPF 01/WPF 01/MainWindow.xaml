@@ -6,17 +6,7 @@
         xmlns:local="clr-namespace:WPF_01"
         mc:Ignorable="d"
         Title="My First GUI" Height="450" Width="800">
-    <StackPanel>
-        <Label FontWeight="Bold">Pizza Topings</Label>
-        <CheckBox Name="cbAllTopings" IsThreeState="True" Checked="cbAllCheckedChanged" Unchecked="cbAllCheckedChanged">Add all</CheckBox>
-        <StackPanel Margin="10">
-            <CheckBox Name="cbSalami" Checked="cbSingleCheckedChanged" Unchecked="cbSingleCheckedChanged">
-                <TextBlock>
-                    Salami <Run Foreground="Red" FontWeight="Bold">Spicy</Run>
-                </TextBlock>
-            </CheckBox>
-            <CheckBox Name="cbMushrooms" Checked="cbSingleCheckedChanged" Unchecked="cbSingleCheckedChanged">Mushrooms</CheckBox>
-            <CheckBox Name="cbMozzarella" Checked="cbSingleCheckedChanged" Unchecked="cbSingleCheckedChanged">Mozzarella</CheckBox>
-        </StackPanel>
-    </StackPanel>
+    <Grid>
+        <Button ToolTip="I'm a tooltip! I'm useful" Width="150" Height="100">Hover for more info</Button>
+    </Grid>
 </Window>
