@@ -23,8 +23,27 @@ namespace WPF_01
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            comboBoxColors.ItemsSource = typeof(Colors).GetProperties();
+        private void cbAllCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            bool newVal = (cbAllTopings.IsChecked == true);
+            cbSalami.IsChecked = newVal;
+            cbMushrooms.IsChecked = newVal;
+            cbMozzarella.IsChecked = newVal;
+        }
+
+        private void cbSingleCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            cbAllTopings.IsChecked = null;
+            if ((cbSalami.IsChecked == true) && (cbMushrooms.IsChecked == true) && (cbMozzarella.IsChecked == true))
+            {
+                cbAllTopings.IsChecked = true;
+            }
+            if ((cbSalami.IsChecked == false) && (cbMushrooms.IsChecked == false) && (cbMozzarella.IsChecked == false))
+            {
+                cbAllTopings.IsChecked = false;
+            }
         }
     }
 }
