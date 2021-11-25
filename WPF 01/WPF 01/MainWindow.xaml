@@ -6,31 +6,16 @@
         xmlns:local="clr-namespace:WPF_01"
         mc:Ignorable="d"
         Title="My First GUI" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
-        <ListBox Name="lbMatches" HorizontalContentAlignment="Stretch">
-            <ListBox.ItemTemplate>
+    <StackPanel>
+        <ComboBox Name="comboBoxColors">
+            <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Team1}"></TextBlock>
-                        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Score1}"></TextBlock>
-                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="{Binding Score2}"></TextBlock>
-                        <TextBlock Grid.Column="3" Text="{Binding Team2}"></TextBlock>
-                        <ProgressBar Grid.Column="4" Minimum="0" Maximum="90" Value="{Binding Completion}"/>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="{Binding Name}" Width="32" Height="32" Margin="5"/>
+                        <TextBlock Text="{Binding Name}" FontSize="32"/>
+                    </StackPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Grid.Column="1" Click="Button_Click">Show Selected</Button>
-    </Grid>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </StackPanel>
 </Window>
