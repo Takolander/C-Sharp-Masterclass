@@ -29,6 +29,30 @@ namespace ZooManager
             string connectionString = ConfigurationManager.ConnectionStrings["ZooManager.Properties.Settings.C_DBConnectionString"].ConnectionString;
             sqlConnection = new SqlConnection(connectionString);
             ShowZoos();
+            ShowAllAnimals();
+        }
+
+        private void ShowAllAnimals()
+        {
+            try
+            {
+                string query = "select * from Animal";
+                
+                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection))
+                {
+                    DataTable animalTable = new DataTable();
+
+                    sqlDataAdapter.Fill(animalTable);
+
+                    listAnimals.DisplayMemberPath = "Name";
+                    listAnimals.SelectedValuePath = "Id";
+                    listAnimals.ItemsSource = animalTable.DefaultView;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
         private void ShowZoos()
@@ -36,10 +60,9 @@ namespace ZooManager
             try
             {
                 string query = "select * from Zoo";
-                // The SqlDataAdapter can be imagined like an Interface to make Tables usable bt C#-Objects
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection);
 
-                using (sqlDataAdapter)
+                // The SqlDataAdapter can be imagined like an Interface to make Tables usable bt C#-Objects
+                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, sqlConnection))
                 {
                     DataTable zooTable = new DataTable();
 
@@ -65,11 +88,11 @@ namespace ZooManager
             {
                 string query = "select * from Animal a inner join ZooAnimal za on a.Id = za.AnimalId where za.ZooId = @ZooId";
 
+                // Makes a SQL command that makes it possible for us to use parameters in our query
                 SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                // The SqlDataAdapter can be imagined like an Interface to make Tables usable bt C#-Objects
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
 
-                using (sqlDataAdapter)
+                // The SqlDataAdapter can be imagined like an Interface to make Tables usable bt C#-Objects
+                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
                 {
                     sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
 
