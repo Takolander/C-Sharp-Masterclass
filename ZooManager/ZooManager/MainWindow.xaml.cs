@@ -117,6 +117,34 @@ namespace ZooManager
         private void listZoos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowAssociatedAnimals();
+            ShowSelectedZooInTextBox();
+        }
+
+        private void ShowSelectedZooInTextBox()
+        {
+            try
+            {
+                string query = "select location from Zoo where Id = @ZooId";
+
+                // Makes a SQL command that makes it possible for us to use parameters in our query
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                // The SqlDataAdapter can be imagined like an Interface to make Tables usable bt C#-Objects
+                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
+                {
+                    sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+
+                    DataTable zooDataTable = new DataTable();
+
+                    sqlDataAdapter.Fill(zooDataTable);
+
+                    txtInput.Text = zooDataTable.Rows[0]["location"].ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                // MessageBox.Show(e.ToString());
+            }
         }
 
         private void DeleteZoo_Click(object sender, RoutedEventArgs e)
@@ -213,6 +241,38 @@ namespace ZooManager
             }
         }
 
+        private void listAnimals_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowSelectedAnimalInTextBox();
+        }
+
+        private void ShowSelectedAnimalInTextBox()
+        {
+            try
+            {
+                string query = "select name from Animal where Id = @AnimalId";
+
+                // Makes a SQL command that makes it possible for us to use parameters in our query
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                // The SqlDataAdapter can be imagined like an Interface to make Tables usable bt C#-Objects
+                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
+                {
+                    sqlCommand.Parameters.AddWithValue("@AnimalId", listAnimals.SelectedValue);
+
+                    DataTable animalDataTable = new DataTable();
+
+                    sqlDataAdapter.Fill(animalDataTable);
+
+                    txtInput.Text = animalDataTable.Rows[0]["name"].ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                // MessageBox.Show(e.ToString());
+            }
+        }
+
         private void AddAnimal_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -245,6 +305,54 @@ namespace ZooManager
 
                 sqlConnection.Open();
 
+                sqlCommand.Parameters.AddWithValue("@AnimalId", listAnimals.SelectedValue);
+                sqlCommand.ExecuteScalar();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowAllAnimals();
+            }
+        }
+
+        private void UpdateZoo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "update Zoo set Location = @Location where Id = @ZooId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                sqlConnection.Open();
+
+                sqlCommand.Parameters.AddWithValue("@Location", txtInput.Text);
+                sqlCommand.Parameters.AddWithValue("@ZooId", listZoos.SelectedValue);
+                sqlCommand.ExecuteScalar();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                ShowZoos();
+            }
+        }
+       
+        private void UpdateAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string query = "update Animal set Name = @Name where Id = @AnimalId";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                sqlConnection.Open();
+
+                sqlCommand.Parameters.AddWithValue("@Name", txtInput.Text);
                 sqlCommand.Parameters.AddWithValue("@AnimalId", listAnimals.SelectedValue);
                 sqlCommand.ExecuteScalar();
             }
