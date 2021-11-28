@@ -18,6 +18,8 @@ namespace LinqToSQL
 {
     public partial class MainWindow : Window
     {
+        //TODO: Add try catch to handle potential errors 
+
         LinqToSQLDataClassesDataContext dataContext;
 
         public MainWindow()
@@ -35,7 +37,9 @@ namespace LinqToSQL
             //GetLecturesFromToni();
             //GetAllStudentsFromYale();
             //GetAllUniversitiesWithTransgenders();
-            GetAllLecturesFromBeijingTech();
+            //GetAllLecturesFromBeijingTech();
+            //UpdateTonie();
+            DeleteJames();
         }
 
         public void InsertUniversities()
@@ -158,6 +162,27 @@ namespace LinqToSQL
                                           select sl.Lecture;
 
             MainDataGrid.ItemsSource = lecturesFromBeijingTech;
+        }
+
+        public void UpdateTonie()
+        {
+            Student tonie = dataContext.Students.FirstOrDefault(st => st.Name == "Tonie");
+
+            tonie.Name = "Antonio";
+
+            dataContext.SubmitChanges();
+
+            MainDataGrid.ItemsSource = dataContext.Students;
+        }
+
+        public void DeleteJames()
+        {
+            Student james = dataContext.Students.FirstOrDefault(st => st.Name == "James");
+            dataContext.Students.DeleteOnSubmit(james);
+
+            dataContext.SubmitChanges();
+
+            MainDataGrid.ItemsSource = dataContext.Students;
         }
     }
 }
