@@ -40,20 +40,25 @@ namespace Threads
             //    Console.WriteLine("Thread 4");
             //}).Start();
 
-            var taskCompletionSource = new TaskCompletionSource<bool>();
-
-            var thread = new Thread(() =>
+            new Thread(() =>
             {
-                Console.WriteLine($"Thread numer: {Thread.CurrentThread.ManagedThreadId} started");
-                Thread.Sleep(5000);
-                taskCompletionSource.TrySetResult(true);
-                Console.WriteLine($"Thread numer: {Thread.CurrentThread.ManagedThreadId} ended");
+                Thread.Sleep(1000);
+                Console.WriteLine("Thread 4");
+            })
+            { IsBackground = true }.Start();
+
+            // Creates 1000 Threads
+            Enumerable.Range(0, 1000).ToList().ForEach(f =>
+            {
+                ThreadPool.QueueUserWorkItem((o) => 
+                {
+                    Console.WriteLine($"Thread number: {Thread.CurrentThread.ManagedThreadId} started");
+                    Thread.Sleep(1000);
+
+                    Console.WriteLine($"Thread number: {Thread.CurrentThread.ManagedThreadId} ended");
+                });
             });
             
-            thread.Start();
-
-            var test = taskCompletionSource.Task.Result;
-            Console.WriteLine("task was done: {0}", test);
 
             Console.ReadLine();
         }
